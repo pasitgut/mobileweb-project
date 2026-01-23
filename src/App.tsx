@@ -1,5 +1,15 @@
 import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import {
+  IonApp,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTab,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+  setupIonicReact,
+} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home";
 
@@ -34,12 +44,18 @@ import "@ionic/react/css/palettes/dark.system.css";
 import "./theme/variables.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Focus from "./pages/Focus";
+import { home, time } from "ionicons/icons";
+import { AuthProvider, useAuth } from "./auth/AuthContext";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
+const Tabs: React.FC = () => {
+  const { user } = useAuth();
+
+  return (
+    <IonTabs>
       <IonRouterOutlet>
         <Route exact path="/login">
           <Login />
@@ -47,14 +63,34 @@ const App: React.FC = () => (
         <Route exact path="/register">
           <Register />
         </Route>
-        <Route exact path="/home">
-          <Home />
-        </Route>
+        <ProtectedRoute exact path="/home" component={Home} />
+        <ProtectedRoute exact path="/focus" component={Focus} />
+
         <Route exact path="/">
-          <Redirect to="/register" />
-          <Register />
+          <Redirect to="/home" />
         </Route>
       </IonRouterOutlet>
+      {user && (
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="Home" href="/home">
+            <IonIcon aria-hidden="true" icon={home} />
+            <IonLabel>Home</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="Focus" href="/focus">
+            <IonIcon aria-hidden="true" icon={time} />
+            <IonLabel>Focus</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      )}
+    </IonTabs>
+  );
+};
+const App: React.FC = () => (
+  <IonApp>
+    <IonReactRouter>
+      <AuthProvider>
+        <Tabs />
+      </AuthProvider>
     </IonReactRouter>
   </IonApp>
 );

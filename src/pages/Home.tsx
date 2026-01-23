@@ -1,22 +1,158 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
+import React, { useState, useEffect } from "react";
+import { IonContent, IonPage, IonIcon } from "@ionic/react";
+import { checkmark } from "ionicons/icons";
+import { auth } from "../firebaseConfig"; // Import Firebase Auth
+import "./Home.css";
+
+// Interface สำหรับข้อมูล Todo
+interface TodoItem {
+  id: number;
+  title: string;
+  statusText: string;
+  originalStatus: "coming soon" | "Missed"; // เก็บสถานะเดิมไว้เวลากดยกเลิกติ๊กถูก
+  date: string;
+  isCompleted: boolean;
+  icon: string; // ใช้อิโมจิแทนรูปภาพเพื่อให้ง่ายต่อการรัน
+}
 
 const Home: React.FC = () => {
+  const [userName, setUserName] = useState<string>("User");
+  const [currentDate, setCurrentDate] = useState<string>("");
+
+  // Mock Data (จำลองข้อมูลตามรูป)
+  const [todos, setTodos] = useState<TodoItem[]>([
+    {
+      id: 1,
+      title: "พาหมาไปเดินเล่น",
+      statusText: "coming soon",
+      originalStatus: "coming soon",
+      date: "13 December 2023",
+      isCompleted: false,
+      icon: "🐶",
+    },
+    {
+      id: 2,
+      title: "ส่งงาน Software Engineering",
+      statusText: "Missed",
+      originalStatus: "Missed",
+      date: "13 December 2023",
+      isCompleted: false,
+      icon: "📓",
+    },
+    {
+      id: 3,
+      title: "ส่งงาน Web Mobile App",
+      statusText: "Completed",
+      originalStatus: "coming soon",
+      date: "13 December 2023",
+      isCompleted: true,
+      icon: "📓",
+    },
+  ]);
+
+  useEffect(() => {
+    // 1. ดึงชื่อ User
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        // ใช้ email หรือ displayName ถ้ามี
+        setUserName(user.displayName || user.email?.split("@")[0] || "User");
+      }
+    });
+
+    // 2. จัดการวันที่ (Format: Friday 12 December 2023)
+    const date = new Date();
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    setCurrentDate(date.toLocaleDateString("en-GB", options));
+
+    return () => unsubscribe();
+  }, []);
+
+  // ฟังก์ชันกดติ๊กถูก
+  const toggleTodo = (id: number) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) => {
+        if (todo.id === id) {
+          const newCompleted = !todo.isCompleted;
+          return {
+            ...todo,
+            isCompleted: newCompleted,
+            statusText: newCompleted ? "Completed" : todo.originalStatus,
+          };
+        }
+        return todo;
+      }),
+    );
+  };
+
+  // Helper เลือกสีสถานะ
+  const getStatusColorClass = (status: string) => {
+    if (status === "coming soon") return "status-green";
+    if (status === "Missed") return "status-red";
+    if (status === "Completed") return "status-yellow";
+    return "";
+  };
+
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
+        <div className="home-container">
+          {/* Header */}
+          <div className="home-header">
+            <h1 className="logo-text">Noted.</h1>
+            <div className="welcome-text">Welcome Back ({userName})</div>
+            <div className="date-text">{currentDate}</div>
+          </div>
+
+          {/* Gray Box Banner */}
+          <div className="gray-banner"></div>
+
+          {/* To-do Section */}
+          <div className="todo-header-row">
+            <h2 className="section-title">To-do</h2>
+            <a className="add-btn">Add-To-do</a>
+          </div>
+
+          {/* Todo List */}
+          <div className="todo-list">
+            {todos.map((todo) => (
+              <div key={todo.id} className="todo-card">
+                {/* Icon */}
+                <div className="todo-icon">{todo.icon}</div>
+
+                {/* Text Info */}
+                <div className="todo-info">
+                  <div
+                    className={`todo-title ${todo.isCompleted ? "completed" : ""}`}
+                  >
+                    {todo.title}
+                  </div>
+                  <div className="todo-meta">
+                    <span className={getStatusColorClass(todo.statusText)}>
+                      {todo.statusText}
+                    </span>
+                    <span style={{ color: "#999", margin: "0 5px" }}>|</span>
+                    <span>{todo.date}</span>
+                  </div>
+                </div>
+
+                {/* Checkbox */}
+                <div
+                  className={`custom-checkbox ${todo.isCompleted ? "checked" : ""}`}
+                  onClick={() => toggleTodo(todo.id)}
+                >
+                  {todo.isCompleted && (
+                    <IonIcon icon={checkmark} className="check-mark" />
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </IonContent>
     </IonPage>
   );

@@ -1,0 +1,150 @@
+/* Import Pixel Font */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Kanit:wght@300;600&display=swap");
+
+.home-container {
+    padding: 20px;
+    background-color: #fff;
+    font-family: "VT323", "Kanit", sans-serif; /* ผสม Kanit สำหรับภาษาไทย */
+    padding-bottom: 80px; /* เผื่อพื้นที่ให้ Tab Bar */
+}
+
+/* --- Header Section --- */
+.home-header {
+    margin-bottom: 20px;
+}
+
+.logo-text {
+    font-family: "Chunq", "Courier New", serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -2px;
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    font-family: "VT323", monospace;
+}
+
+.date-text {
+    font-size: 1.2rem;
+    color: #000;
+    font-family: "VT323", monospace;
+}
+
+/* --- Gray Box Placeholder --- */
+.gray-banner {
+    width: 100%;
+    height: 180px;
+    background-color: #d9d9d9;
+    border-radius: 0; /* เหลี่ยมตามภาพ */
+    margin-bottom: 25px;
+}
+
+/* --- To-do Section Header --- */
+.todo-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-family: "Press Start 2P", cursive; /* ฟอนต์หัวข้อแบบ Pixel */
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.add-btn {
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+/* --- To-do Card Item --- */
+.todo-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 15px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.todo-icon {
+    font-size: 2.5rem;
+    margin-right: 15px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.todo-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-title {
+    font-family: "Kanit", sans-serif; /* ใช้ Kanit ให้แสดงไทยสวย */
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #000;
+}
+
+.todo-meta {
+    font-family: "VT323", monospace;
+    font-size: 1.1rem;
+    display: flex;
+    gap: 5px;
+}
+
+.todo-title.completed {
+    text-decoration: line-through;
+    color: #555;
+}
+
+/* Status Colors */
+.status-green {
+    color: #00aa00;
+    font-weight: bold;
+}
+.status-red {
+    color: #ff0000;
+    font-weight: bold;
+}
+.status-yellow {
+    color: #f1c40f;
+    font-weight: bold;
+} /* เหลืองเข้มให้อ่านง่าย */
+
+/* --- Custom Checkbox --- */
+.custom-checkbox {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #000;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 10px;
+    background-color: #fff;
+}
+
+.custom-checkbox.checked {
+    background-color: #00aa00; /* สีเขียวเมื่อติ๊กถูก */
+    border-color: #000;
+}
+
+.check-mark {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}

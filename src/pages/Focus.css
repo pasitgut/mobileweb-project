@@ -1,0 +1,202 @@
+/* นำเข้าฟอนต์ Pixel */
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+.gameboy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #e0e0e0; /* สีพื้นหลังเทาแบบ Gameboy */
+    min-height: 100%;
+    font-family: "Press Start 2P", cursive;
+}
+
+/* --- Logo --- */
+.focus-logo h1 {
+    font-family:
+        "Chunq", "Courier New", serif; /* ใช้ Font เดียวกับหน้า Register */
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #000;
+    text-shadow: 2px 2px 0px #fff;
+    letter-spacing: -2px;
+}
+
+/* --- Screen Area --- */
+.gb-screen-bezel {
+    background-color: #555; /* ขอบจอสีเทาเข้ม (ถ้ามี) หรือปล่อยว่างตามรูป */
+    border-radius: 10px 10px 40px 10px;
+    padding: 0;
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 10px;
+}
+
+.gb-screen {
+    background-color: #6b8c0e; /* สีเขียวขี้ม้าแบบ Gameboy */
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.pixel-text {
+    color: #0f380f; /* สีตัวหนังสือเขียวเข้มเกือบดำ */
+    text-shadow: 2px 2px 0px #8bac0f; /* เงาสีเขียวอ่อน */
+    text-align: center;
+    line-height: 1.5;
+}
+
+.status-text {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.timer-text {
+    font-size: 2.5rem;
+    font-family: "VT323", monospace; /* ใช้ฟอนต์ตัวเลขแบบดิจิตอล */
+    font-size: 5rem; /* ขยายให้ใหญ่ */
+    letter-spacing: 2px;
+}
+
+/* --- Focus Label --- */
+.focus-label {
+    width: 100%;
+    max-width: 350px;
+    text-align: left;
+    color: #3b3b98; /* สีน้ำเงินม่วงตามรูป */
+    font-size: 1.5rem;
+    margin: 10px 0 30px 0;
+    text-transform: uppercase;
+}
+
+/* --- Controls Container --- */
+.controls-area {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 320px;
+    align-items: center;
+}
+
+/* --- D-Pad (ปุ่มบวก) --- */
+.d-pad {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.d-pad div {
+    background-color: #000;
+    position: absolute;
+    cursor: pointer;
+    box-shadow: 2px 2px 0px #555;
+}
+
+.d-pad div:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0px #555;
+}
+
+.dp-center {
+    top: 40px;
+    left: 40px;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+}
+.dp-up {
+    top: 0;
+    left: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px 5px 0 0;
+}
+.dp-right {
+    top: 40px;
+    left: 80px;
+    width: 40px;
+    height: 40px;
+    border-radius: 0 5px 5px 0;
+}
+.dp-down {
+    top: 80px;
+    left: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 0 0 5px 5px;
+}
+.dp-left {
+    top: 40px;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px 0 0 5px;
+}
+
+/* --- A/B Buttons --- */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+    transform: rotate(-10deg); /* เอียงนิดหน่อยตามสไตล์ */
+}
+
+.btn-circle-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #8b1d56; /* สีแดงเลือดหมู */
+    border-radius: 50%;
+    box-shadow: 3px 3px 0px #444;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-circle:active {
+    transform: scale(0.95);
+    box-shadow: 1px 1px 0px #444;
+}
+
+.btn-label {
+    font-size: 0.7rem;
+    margin-top: 5px;
+    color: #000;
+    font-weight: bold;
+}
+
+.stop-btn {
+    margin-right: -20px;
+    margin-bottom: 10px;
+} /* จัดตำแหน่ง Stop เยื้องขึ้น */
+.start-btn {
+    margin-right: 20px;
+}
+
+/* --- Select/Start Pills (ด้านล่าง) --- */
+.bottom-pills {
+    display: flex;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.pill-btn {
+    width: 60px;
+    height: 20px;
+    background-color: #666; /* สีเทาเข้ม */
+    border-radius: 20px;
+    transform: rotate(-25deg);
+    border: 1px solid #444;
+    box-shadow: 1px 1px 0 #000;
+}
