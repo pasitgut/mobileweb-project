@@ -1,0 +1,219 @@
+/* Import Font ที่ดูหนาๆ คล้ายโลโก้ (Option) */
+@import url("https://fonts.googleapis.com/css2?family=Chunq&family=Courier+Prime:wght@400;700&display=swap");
+
+/* --- 1. พื้นหลัง Grid สีขาว --- */
+.retro-bg {
+    /* ต้องรวมทุกอย่าง (Gradient + Size + Color) ไว้ในตัวแปร --background บรรทัดเดียว */
+    --background:
+        linear-gradient(#ccc 2px, transparent 2px) 0 0 / 40px 40px,
+        linear-gradient(90deg, #ccc 2px, transparent 2px) 0 0 / 40px 40px
+            #ffffff;
+
+    /* ใส่เผื่อไว้สำหรับ Browser ที่ไม่รองรับ Shadow DOM บางตัว */
+    background:
+        linear-gradient(#ccc 2px, transparent 2px) 0 0 / 40px 40px,
+        linear-gradient(90deg, #ccc 2px, transparent 2px) 0 0 / 40px 40px
+            #ffffff;
+
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* --- 2. Logo "Noted." --- */
+.logo-container {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    text-align: left;
+    padding-left: 30px;
+    position: relative;
+    z-index: 10;
+}
+
+.logo-container h1 {
+    font-family: "Courier New", serif; /* ใช้ Font เดิมหรือหา Font หนาๆ */
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #000;
+    margin: 0;
+    letter-spacing: -3px;
+    /* ทำขอบขาวและเงาดำ */
+    text-shadow:
+        -2px -2px 0 #fff,
+        2px -2px 0 #fff,
+        -2px 2px 0 #fff,
+        2px 2px 0 #fff,
+        4px 4px 0 #000;
+}
+
+/* --- 3. กล่อง Card ลายตารางหมากรุก (Checkered) --- */
+.auth-card {
+    width: 85%;
+    max-width: 350px;
+    margin: 0 auto;
+
+    /* ขอบหนาสีดำเข้ม */
+    border: 3px solid #333;
+
+    /* --- ส่วนสร้างลายตารางหมากรุก (Checkerboard) --- */
+    background-color: #808080; /* สีพื้นสำรอง */
+
+    /* ใช้ conic-gradient วาดสี่เหลี่ยม 4 ช่องสลับสี */
+    background-image: conic-gradient(
+        #999 90deg,
+        /* สีเทาอ่อน (ช่อง 1) */ #777 90deg 180deg,
+        /* สีเทาเข้ม (ช่อง 2) */ #999 180deg 270deg,
+        /* สีเทาอ่อน (ช่อง 3) */ #777 270deg /* สีเทาเข้ม (ช่อง 4) */
+    );
+
+    /* กำหนดขนาดของ 1 บล็อก (ยิ่งเลขน้อย ตารางยิ่งถี่) */
+    background-size: 24px 24px;
+
+    /* ------------------------------------------- */
+
+    position: relative;
+
+    /* เงาแข็งด้านหลัง */
+    box-shadow: 12px 12px 0px #444;
+    z-index: 5;
+}
+
+/* --- 4. Header "Register" --- */
+.card-header {
+    background-color: #666; /* สีเทาเข้ม */
+    border-bottom: 3px solid #444;
+    padding: 12px;
+    text-align: center;
+    position: relative;
+    /* ทำให้ดูนูนขึ้นมานิดนึง */
+    box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.2);
+}
+
+.card-header h2 {
+    margin: 0;
+    color: #fff;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 0px #333;
+}
+
+/* --- 5. Inputs Styles --- */
+.card-body {
+    padding: 20px 15px;
+}
+
+.input-group {
+    margin-bottom: 12px;
+}
+
+/* ปรับแต่ง IonInput ให้แบนราบ (Flat) */
+.retro-input {
+    --background: #d9d9d9; /* สีเทาอ่อนเรียบๆ */
+    --padding-start: 10px;
+    --placeholder-color: #777;
+    --color: #333;
+    border: 2px solid #555;
+    font-weight: bold;
+    height: 45px;
+    --border-radius: 0px; /* สี่เหลี่ยมเป๊ะๆ */
+}
+
+/* --- 6. ปุ่ม Register --- */
+.button-container {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+}
+
+.retro-button {
+    --background: #777;
+    --color: #fff;
+    --border-radius: 0;
+    border: 2px solid #333;
+    box-shadow: 4px 4px 0px #333; /* เงาปุ่ม */
+    font-weight: bold;
+    font-size: 1.1rem;
+    width: 140px;
+    height: 45px;
+    text-transform: capitalize;
+}
+
+/* --- 7. ของตกแต่ง (Decorations) --- */
+
+/* เส้น Arrow >>> ด้านบน */
+.deco-arrow {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    letter-spacing: -5px;
+    color: transparent;
+    -webkit-text-stroke: 1px #000;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+/* เส้นแรเงาด้านข้าง */
+.deco-stripes-left {
+    position: absolute;
+    left: -20px;
+    top: 300px;
+    width: 60px;
+    height: 40px;
+    background: repeating-linear-gradient(
+        45deg,
+        #000,
+        #000 1px,
+        transparent 1px,
+        transparent 5px
+    );
+    z-index: 1;
+}
+
+.deco-stripes-right {
+    position: absolute;
+    right: -20px;
+    bottom: 200px;
+    width: 80px;
+    height: 40px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #000,
+        #000 1px,
+        transparent 1px,
+        transparent 5px
+    );
+    z-index: 1;
+}
+
+/* วงกลมซ้อนกัน */
+.deco-circles-bottom-left {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    display: flex;
+}
+.circle {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    background: transparent;
+}
+.circle.c1 {
+    margin-right: -25px;
+    margin-top: -20px;
+}
+.circle.c2 {
+    z-index: 2;
+}
+
+/* ดาววิ้งๆ */
+.deco-sparkle {
+    position: absolute;
+    bottom: 50px;
+    left: 100px;
+    font-size: 3rem;
+    color: #000;
+    font-weight: lighter;
+}
