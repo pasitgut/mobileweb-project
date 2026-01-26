@@ -1,11 +1,10 @@
-/* Import a pixel font from Google Fonts to match the image style */
+/* Import Fonts: VT323 (Pixel), Poppins/Kanit (Body) */
 @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Kanit:wght@300;400;500&display=swap");
 
-/* General Page Styling */
 .profile-page {
     background-color: #ffffff;
-    font-family: "Poppins", sans-serif;
+    font-family: "Poppins", "Kanit", sans-serif;
 }
 
 ion-content {
@@ -15,31 +14,34 @@ ion-content {
 /* Header Styling */
 .custom-header {
     display: flex;
+    justify-content: start;
+    gap: 12px;
     align-items: center;
-    padding: 10px 20px;
+    padding: 15px 20px;
     background: white;
-    border-bottom: 1px solid #000; /* mimic the line under header */
+    border-bottom: 1px solid #000; /* เส้นขีดกั้นตามภาพ */
 }
 
 .custom-header h1 {
-    flex-grow: 1;
     margin: 0;
-    font-size: 32px;
+    font-size: 36px; /* ขนาดใหญ่แบบในรูป */
     color: #000;
     letter-spacing: 1px;
+    line-height: 1;
 }
 
 .header-icon-bg {
-    background: #f0f0f0;
+    background: #e0e0e0;
     border-radius: 8px;
-    padding: 4px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .header-icon-bg ion-icon {
-    font-size: 24px;
+    font-size: 20px;
     color: #333;
 }
 
@@ -53,14 +55,14 @@ ion-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 30px;
 }
 
 .avatar-circle {
-    width: 120px;
-    height: 120px;
-    background-color: #d9d9d9; /* Gray placeholder */
+    width: 140px; /* ขยายขนาดวงกลม */
+    height: 140px;
+    background-color: #d9d9d9;
     border-radius: 50%;
     position: relative;
 }
@@ -68,88 +70,85 @@ ion-content {
 .edit-badge {
     position: absolute;
     bottom: 5px;
-    right: 5px;
+    right: 10px;
     background-color: #707070;
     color: white;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid white;
+    border: 3px solid white; /* ขอบขาวหนาขึ้น */
 }
 
 .user-name-text {
     margin-top: 15px;
-    font-size: 24px;
+    font-size: 28px;
     color: #000;
+    font-weight: normal;
 }
 
 /* Form Inputs */
-.form-container {
-    margin-bottom: 40px;
+.form-container-profile {
+    /*margin-bottom: 40px;*/
+    /*padding: 0 10px;*/
 }
 
 .input-group {
-    margin-bottom: 20px;
+    margin-top: 16px;
+    /*margin-bottom: 25px;*/
 }
 
 .input-group label {
     display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 14px;
+    font-weight: 700; /* ตัวหนาตามภาพ */
+    margin-bottom: 10px;
+    color: #000;
+    font-size: 16px;
 }
 
-/* Custom Input Box (Simulating the rounded border look) */
+/* Custom Input Box */
 .custom-input-box {
     display: flex;
     align-items: center;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
+    border: 1px solid #d0d0d0; /* ขอบสีเทาอ่อน */
+    border-radius: 15px; /* มุมมนมากหน่อย */
     padding: 0 16px;
-    height: 50px;
+    height: 55px; /* สูงขึ้นนิดหน่อย */
     background: white;
-    transition: border-color 0.2s;
-}
-
-.custom-input-box:focus-within {
-    border-color: #000;
 }
 
 .input-icon {
-    font-size: 20px;
-    color: #888;
-    margin-right: 10px;
+    font-size: 22px;
+    color: #999; /* ไอคอนสีเทาอ่อน */
+    margin-right: 12px;
 }
 
 .eye-icon {
-    font-size: 20px;
-    color: #888;
+    font-size: 22px;
+    color: #999;
     margin-left: 10px;
     cursor: pointer;
 }
 
 .placeholder-text {
     color: #aaa;
-    font-size: 14px;
+    font-size: 15px;
 }
 
-/* Override default Ionic Input styles to fit our box */
 .custom-ion-input {
     --padding-start: 0;
     --padding-end: 0;
     --placeholder-color: #aaa;
     --placeholder-opacity: 1;
-    font-size: 14px;
+    font-size: 15px;
     color: #333;
 }
 
 .small-box {
     justify-content: flex-start;
-    margin-bottom: 20px; /* Space below date/gender row */
+    margin-bottom: 0;
 }
 
 .flex-grow {
@@ -160,7 +159,8 @@ ion-content {
 .button-group {
     display: flex;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 30px;
+    padding: 0 10px;
 }
 
 .custom-black-btn {
@@ -168,10 +168,10 @@ ion-content {
     --color: #ffffff;
     --border-radius: 12px;
     --box-shadow: none;
-    font-family: "VT323", monospace; /* Pixel font for buttons */
-    font-size: 22px;
+    font-family: "VT323", monospace;
+    font-size: 24px; /* ขนาดฟอนต์ปุ่มใหญ่ */
     text-transform: none;
-    height: 55px;
+    height: 60px;
     flex: 1;
     letter-spacing: 1px;
 }

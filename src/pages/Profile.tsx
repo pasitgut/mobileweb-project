@@ -9,22 +9,18 @@ import {
   IonRow,
   IonCol,
   IonButton,
-  IonDatetimeButton,
-  IonModal,
-  IonDatetime,
-  IonSelect,
-  IonSelectOption,
 } from "@ionic/react";
 import {
   person,
   pencil,
-  calendarOutline,
+  calendarClearOutline,
   personOutline,
   callOutline,
   mailOutline,
   lockClosedOutline,
   eyeOutline,
   eyeOffOutline,
+  chevronDownOutline,
 } from "ionicons/icons";
 import "./Profile.css";
 
@@ -36,7 +32,7 @@ const Profile: React.FC = () => {
       {/* Header Section */}
       <IonHeader className="ion-no-border">
         <div className="custom-header">
-          <h1 className="pixel-font">ProFile</h1>
+          <h1 className="pixel-font">Profile</h1>
           <div className="header-icon-bg">
             <IonIcon icon={person} />
           </div>
@@ -55,14 +51,13 @@ const Profile: React.FC = () => {
         </div>
 
         {/* Form Section */}
-        <div className="form-container">
+        <div className="form-container-profile">
           {/* Date & Gender Row */}
           <IonGrid className="ion-no-padding">
             <IonRow>
               <IonCol size="6" className="ion-padding-end">
                 <div className="custom-input-box small-box">
-                  <IonIcon icon={calendarOutline} className="input-icon" />
-                  {/* Using a placeholder text for visual cloning */}
+                  <IonIcon icon={calendarClearOutline} className="input-icon" />
                   <span className="placeholder-text">DD/MM/YYYY</span>
                 </div>
               </IonCol>
@@ -73,8 +68,8 @@ const Profile: React.FC = () => {
                     <span className="placeholder-text">Gender</span>
                   </div>
                   <IonIcon
-                    icon="chevron-down-outline"
-                    style={{ fontSize: "12px" }}
+                    icon={chevronDownOutline}
+                    style={{ fontSize: "16px", color: "#333" }}
                   />
                 </div>
               </IonCol>
