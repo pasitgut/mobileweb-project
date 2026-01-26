@@ -3,50 +3,51 @@ import { IonContent, IonPage, useIonViewWillLeave } from "@ionic/react";
 import "./Focus.css";
 
 const Focus: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState(1500); // เริ่มต้น 25 นาที (Pomodoro)
+  const defaultTime = 3600; // 1 ชั่วโมง
+  const [timeLeft, setTimeLeft] = useState(defaultTime);
   const [isActive, setIsActive] = useState(false);
 
-  // หยุดเวลาเมื่อออกจากหน้านี้ (Cleanup)
   useIonViewWillLeave(() => {
     setIsActive(false);
   });
 
   useEffect(() => {
     let interval: any = null;
-
     if (isActive && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft((time) => time - 1);
       }, 1000);
     } else if (timeLeft === 0) {
       setIsActive(false);
-      // Play sound or vibrate here if needed
     }
-
     return () => clearInterval(interval);
   }, [isActive, timeLeft]);
 
   const formatTime = (seconds: number) => {
+    const getSeconds = `0${seconds % 60}`.slice(-2);
     const minutes = Math.floor(seconds / 60);
     const getMinutes = `0${minutes % 60}`.slice(-2);
-    const getSeconds = `0${seconds % 60}`.slice(-2);
-    // กรณีเกิน 1 ชม. ให้โชว์แค่ MM:SS ตามสไตล์ Gameboy หรือปรับตามต้องการ
-    return `${minutes}:${getSeconds}`;
+    const getHours = `0${Math.floor(seconds / 3600)}`.slice(-2);
+    return `${getHours}:${getMinutes}:${getSeconds}`;
   };
 
-  const handleStartToggle = () => {
-    if (timeLeft > 0) setIsActive(!isActive);
+  // ฟังก์ชันปุ่ม Start/Pause
+  const handleToggleTimer = () => {
+    if (timeLeft > 0) {
+      setIsActive(!isActive);
+    }
   };
 
-  const handleStop = () => {
+  // ฟังก์ชันปุ่ม Reset
+  const handleReset = () => {
     setIsActive(false);
-    setTimeLeft(1500); // Reset กลับไปที่ 25 นาที
+    setTimeLeft(defaultTime);
   };
 
-  const adjustTime = (minutes: number) => {
+  const adjustTime = (seconds: number) => {
     if (!isActive) {
       setTimeLeft((prev) => {
-        const newTime = prev + minutes * 60;
+        const newTime = prev + seconds;
         return newTime > 0 ? newTime : 0;
       });
     }
@@ -54,89 +55,61 @@ const Focus: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen className="gb-content">
-        <div className="gameboy-body">
-          {/* Header / Logo */}
-          <div className="gb-header">
-            <div className="header-line"></div>
-            <div className="header-line"></div>
+      <IonContent fullscreen className="focus-bg">
+        <div className="focus-container">
+          {/* Header Logo */}
+          <div className="header-logo">Noted.</div>
+
+          {/* Green Screen Area */}
+          <div className="screen-box">
+            <div className="screen-status-text">
+              {isActive ? "Running" : "Paused"}
+            </div>
+            <div className="screen-timer-text">{formatTime(timeLeft)}</div>
           </div>
 
-          {/* Screen Section */}
-          <div className="gb-screen-bezel">
-            <div className="battery-light"></div>
-            <div className="gb-screen-lens">
-              <div className="gb-lcd">
-                <div className="pixel-text status-text">
-                  {isActive ? "► RUNNING" : "II PAUSED"}
-                </div>
-                <div className="pixel-text timer-text">
-                  {formatTime(timeLeft)}
-                </div>
-              </div>
+          {/* Focus Label */}
+          <div className="focus-label">Focus</div>
+
+          {/* Controls Area */}
+          <div className="controls-row">
+            {/* D-Pad (Left Side) */}
+            <div className="d-pad">
+              <div className="dp-up" onClick={() => adjustTime(300)}></div>{" "}
+              {/* +5 min */}
+              <div className="dp-right"></div>
+              <div
+                className="dp-down"
+                onClick={() => adjustTime(-300)}
+              ></div>{" "}
+              {/* -5 min */}
+              <div className="dp-left"></div>
+              <div className="dp-center"></div>
             </div>
-            <div className="logo-area">
-              <span className="nintendo-font">Noted.</span>
+
+            {/* A/B Buttons (Right Side) */}
+            <div className="buttons-group">
+              {/* ปุ่มบนขวา: Reset */}
+              <div className="btn-item stop-pos">
+                <button className="circle-btn" onClick={handleReset}></button>
+                <span className="btn-text">Reset</span>
+              </div>
+
+              {/* ปุ่มล่างซ้าย: Start/Pause */}
+              <div className="btn-item start-pos">
+                <button
+                  className="circle-btn"
+                  onClick={handleToggleTimer}
+                ></button>
+                <span className="btn-text">{isActive ? "Pause" : "Start"}</span>
+              </div>
             </div>
           </div>
 
-          {/* Controls Section */}
-          <div className="controls-area">
-            {/* Logo Name (Focus) */}
-            <div className="model-name">
-              <span className="italic-font">Focus</span>
-              <span className="model-tm">TM</span>
-            </div>
-
-            <div className="input-group">
-              {/* D-Pad */}
-              <div className="d-pad">
-                <div className="dp-up" onClick={() => adjustTime(5)}></div>
-                <div className="dp-right"></div>
-                <div className="dp-down" onClick={() => adjustTime(-5)}></div>
-                <div className="dp-left"></div>
-                <div className="dp-center"></div>
-              </div>
-
-              {/* A/B Buttons */}
-              <div className="action-buttons">
-                <div className="btn-wrapper">
-                  <button className="btn-round" onClick={handleStop}></button>
-                  <span className="btn-label">RESET</span>
-                </div>
-                <div className="btn-wrapper">
-                  <button
-                    className="btn-round"
-                    onClick={handleStartToggle}
-                  ></button>
-                  <span className="btn-label">
-                    {isActive ? "PAUSE" : "START"}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Select / Start Pills */}
-            <div className="pill-group">
-              <div className="pill-wrapper">
-                <div className="pill-btn"></div>
-                <span className="pill-label">SELECT</span>
-              </div>
-              <div className="pill-wrapper">
-                <div className="pill-btn"></div>
-                <span className="pill-label">START</span>
-              </div>
-            </div>
-
-            {/* Speaker Grills */}
-            <div className="speaker-grill">
-              <div className="grill-line"></div>
-              <div className="grill-line"></div>
-              <div className="grill-line"></div>
-              <div className="grill-line"></div>
-              <div className="grill-line"></div>
-              <div className="grill-line"></div>
-            </div>
+          {/* Bottom Pills */}
+          <div className="bottom-pills-row">
+            <div className="pill-gray"></div>
+            <div className="pill-gray"></div>
           </div>
         </div>
       </IonContent>
