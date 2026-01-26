@@ -45,9 +45,12 @@ import "./theme/variables.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Focus from "./pages/Focus";
-import { home, time } from "ionicons/icons";
+import { calendar, home, list, people, person, time } from "ionicons/icons";
 import { AuthProvider, useAuth } from "./auth/AuthContext";
 import ProtectedRoute from "./auth/ProtectedRoute";
+import Calendar from "./pages/Calendar";
+import Todo from "./pages/Todo";
+import Profile from "./pages/Profile";
 
 setupIonicReact();
 
@@ -65,6 +68,9 @@ const Tabs: React.FC = () => {
         </Route>
         <ProtectedRoute exact path="/home" component={Home} />
         <ProtectedRoute exact path="/focus" component={Focus} />
+        <ProtectedRoute exact path="/calendar" component={Calendar} />
+        <ProtectedRoute exact path="/todo" component={Todo} />
+        <ProtectedRoute exact path="/profile" component={Profile} />
 
         <Route exact path="/">
           <Redirect to="/home" />
@@ -79,6 +85,18 @@ const Tabs: React.FC = () => {
           <IonTabButton tab="Focus" href="/focus">
             <IonIcon aria-hidden="true" icon={time} />
             <IonLabel>Focus</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="Calendar" href="/calendar">
+            <IonIcon aria-hidden="true" icon={calendar} />
+            <IonLabel>Calendar</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="Todo" href="/todo">
+            <IonIcon aria-hidden="true" icon={list} />
+            <IonLabel>Todo</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="Profile" href="/profile">
+            <IonIcon aria-hidden="true" icon={person} />
+            <IonLabel>People</IonLabel>
           </IonTabButton>
         </IonTabBar>
       )}

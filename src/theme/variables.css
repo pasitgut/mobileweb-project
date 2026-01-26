@@ -1,2 +1,22 @@
 /* For information on how to create your own theme, please refer to:
 http://ionicframework.com/docs/theming/ */
+
+ion-tab-bar {
+    border-top: 1px solid #000;
+    height: 70px;
+    --background: #fff;
+}
+
+ion-tab-button {
+    --color: #000;
+    --color-selected: #000;
+}
+
+ion-icon {
+    font-size: 32px;
+}
+
+ion-label {
+    font-size: 1.2rem;
+    margin-top: 4px;
+}

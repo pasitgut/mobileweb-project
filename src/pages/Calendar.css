@@ -1,0 +1,55 @@
+/* นำเข้าฟอนต์ Pixel */
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+/* กำหนด Global Style */
+:root {
+    --ion-font-family: "VT323", monospace;
+}
+
+body {
+    font-family: "VT323", monospace;
+}
+
+ion-header {
+    box-shadow: none !important;
+}
+
+.calendar-grid {
+    text-align: center;
+}
+
+.day-header {
+    font-size: 1.8rem;
+    color: #000;
+    padding-bottom: 20px;
+}
+
+.calendar-day {
+    font-size: 1.5rem;
+    color: #888; /* สีเทาตามภาพ */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selected-day {
+    background-color: #d0d0d0; /* พื้นหลังสีเทา */
+    color: #000; /* ตัวหนังสือสีดำ */
+    font-weight: bold;
+    border-radius: 4px; /* มนนิดหน่อย */
+}
+
+.header-year {
+    font-size: 3rem;
+    margin-left: 16px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.header-month {
+    font-size: 3rem;
+    margin-left: 16px;
+    margin-bottom: 20px;
+    font-weight: normal;
+}

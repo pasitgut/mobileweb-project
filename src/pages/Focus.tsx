@@ -3,11 +3,9 @@ import { IonContent, IonPage } from "@ionic/react";
 import "./Focus.css";
 
 const Focus: React.FC = () => {
-  // State สำหรับเวลา (วินาที) Default 1 ชั่วโมง = 3600
   const [timeLeft, setTimeLeft] = useState(3600);
   const [isActive, setIsActive] = useState(false);
 
-  // Logic การนับถอยหลัง
   useEffect(() => {
     let interval: any = null;
     if (isActive && timeLeft > 0) {
@@ -16,12 +14,10 @@ const Focus: React.FC = () => {
       }, 1000);
     } else if (timeLeft === 0) {
       setIsActive(false);
-      // อาจจะใส่เสียงเตือนตรงนี้
     }
     return () => clearInterval(interval);
   }, [isActive, timeLeft]);
 
-  // แปลงวินาทีเป็น HH:MM:SS
   const formatTime = (seconds: number) => {
     const getSeconds = `0${seconds % 60}`.slice(-2);
     const minutes = Math.floor(seconds / 60);
@@ -31,17 +27,14 @@ const Focus: React.FC = () => {
     return `${getHours}:${getMinutes}:${getSeconds}`;
   };
 
-  // ปุ่ม Start
   const handleStart = () => {
     if (timeLeft > 0) setIsActive(true);
   };
 
-  // ปุ่ม Stop
   const handleStop = () => {
     setIsActive(false);
   };
 
-  // D-Pad Controls (เพิ่มลดเวลา)
   const adjustTime = (minutes: number) => {
     if (!isActive) {
       setTimeLeft((prev) => {

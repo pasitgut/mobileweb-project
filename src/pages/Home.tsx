@@ -1,25 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { IonContent, IonPage, IonIcon } from "@ionic/react";
 import { checkmark } from "ionicons/icons";
-import { auth } from "../firebaseConfig"; // Import Firebase Auth
+import { auth } from "../firebaseConfig";
 import "./Home.css";
 
-// Interface สำหรับข้อมูล Todo
 interface TodoItem {
   id: number;
   title: string;
   statusText: string;
-  originalStatus: "coming soon" | "Missed"; // เก็บสถานะเดิมไว้เวลากดยกเลิกติ๊กถูก
+  originalStatus: "coming soon" | "Missed";
   date: string;
   isCompleted: boolean;
-  icon: string; // ใช้อิโมจิแทนรูปภาพเพื่อให้ง่ายต่อการรัน
+  icon: string;
 }
 
 const Home: React.FC = () => {
   const [userName, setUserName] = useState<string>("User");
   const [currentDate, setCurrentDate] = useState<string>("");
 
-  // Mock Data (จำลองข้อมูลตามรูป)
   const [todos, setTodos] = useState<TodoItem[]>([
     {
       id: 1,
@@ -48,18 +46,51 @@ const Home: React.FC = () => {
       isCompleted: true,
       icon: "📓",
     },
+    // {
+    //   id: 4,
+    //   title: "Mobile Web Project",
+    //   statusText: "Missed",
+    //   originalStatus: "coming soon",
+    //   date: "13 December 2023",
+    //   isCompleted: true,
+    //   icon: "",
+    // },
+    // {
+    //   id: 5,
+    //   title: "Mobile Web Project",
+    //   statusText: "Missed",
+    //   originalStatus: "coming soon",
+    //   date: "13 December 2023",
+    //   isCompleted: true,
+    //   icon: "",
+    // },
+    // {
+    //   id: 6,
+    //   title: "Mobile Web Project",
+    //   statusText: "Missed",
+    //   originalStatus: "coming soon",
+    //   date: "13 December 2023",
+    //   isCompleted: true,
+    //   icon: "",
+    // },
+    // {
+    //   id: 7,
+    //   title: "Mobile Web Project",
+    //   statusText: "Missed",
+    //   originalStatus: "coming soon",
+    //   date: "13 December 2023",
+    //   isCompleted: true,
+    //   icon: "",
+    // },
   ]);
 
   useEffect(() => {
-    // 1. ดึงชื่อ User
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        // ใช้ email หรือ displayName ถ้ามี
         setUserName(user.displayName || user.email?.split("@")[0] || "User");
       }
     });
 
-    // 2. จัดการวันที่ (Format: Friday 12 December 2023)
     const date = new Date();
     const options: Intl.DateTimeFormatOptions = {
       weekday: "long",
@@ -72,7 +103,6 @@ const Home: React.FC = () => {
     return () => unsubscribe();
   }, []);
 
-  // ฟังก์ชันกดติ๊กถูก
   const toggleTodo = (id: number) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) => {
@@ -89,7 +119,6 @@ const Home: React.FC = () => {
     );
   };
 
-  // Helper เลือกสีสถานะ
   const getStatusColorClass = (status: string) => {
     if (status === "coming soon") return "status-green";
     if (status === "Missed") return "status-red";
@@ -99,7 +128,7 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent fullscreen className="master">
         <div className="home-container">
           {/* Header */}
           <div className="home-header">

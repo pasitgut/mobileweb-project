@@ -1,11 +1,19 @@
 /* Import Pixel Font */
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Kanit:wght@300;600&display=swap");
 
+.master {
+    background-color: #fff;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
 .home-container {
     padding: 20px;
     background-color: #fff;
     font-family: "VT323", "Kanit", sans-serif; /* ผสม Kanit สำหรับภาษาไทย */
-    padding-bottom: 80px; /* เผื่อพื้นที่ให้ Tab Bar */
+    flex-grow: 1;
+    min-height: 100%;
 }
 
 /* --- Header Section --- */
@@ -50,6 +58,12 @@
     margin-bottom: 15px;
 }
 
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+}
 .section-title {
     font-family: "Press Start 2P", cursive; /* ฟอนต์หัวข้อแบบ Pixel */
     font-size: 1.5rem;
