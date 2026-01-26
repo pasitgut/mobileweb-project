@@ -1,53 +1,66 @@
-/* Import Pixel Font */
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Kanit:wght@300;600&display=swap");
+/* Import Google Fonts:
+   - Silkscreen: ใช้แทน Chunq (Logo)
+   - VT323: Pixel font (Date, Meta text)
+   - Press Start 2P: Pixel Header (To-do)
+   - Kanit: Thai Text (Content)
+*/
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap");
 
-.master {
-    background-color: #fff;
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
+/* Reset & Global */
+.master-content {
+    --background: #ffffff;
 }
 
 .home-container {
     padding: 20px;
-    background-color: #fff;
-    font-family: "VT323", "Kanit", sans-serif; /* ผสม Kanit สำหรับภาษาไทย */
-    flex-grow: 1;
-    min-height: 100%;
+    background-color: #ffffff;
+    min-height: 100vh;
+    font-family: "Kanit", sans-serif;
+    padding-bottom: 80px; /* เผื่อพื้นที่ด้านล่าง */
 }
 
 /* --- Header Section --- */
 .home-header {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .logo-text {
-    font-family: "Chunq", "Courier New", serif;
-    font-size: 2.5rem;
-    font-weight: 900;
+    font-family:
+        "Silkscreen", cursive; /* เปลี่ยนเป็น Silkscreen ให้อ่านง่ายและเท่ */
+    font-size: 3rem;
+    font-weight: 700;
     margin: 0;
-    letter-spacing: -2px;
+    color: #000;
+    letter-spacing: -1px;
+    line-height: 1;
 }
 
 .welcome-text {
-    font-size: 1.2rem;
-    margin-top: 10px;
     font-family: "VT323", monospace;
+    font-size: 1.4rem;
+    margin-top: 10px;
+    color: #333;
 }
 
 .date-text {
-    font-size: 1.2rem;
-    color: #000;
     font-family: "VT323", monospace;
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: -5px;
 }
 
-/* --- Gray Box Placeholder --- */
+/* --- Gray Box Banner --- */
 .gray-banner {
     width: 100%;
     height: 180px;
     background-color: #d9d9d9;
-    border-radius: 0; /* เหลี่ยมตามภาพ */
-    margin-bottom: 25px;
+    border: 2px solid #000; /* เพิ่มขอบดำให้เข้า theme */
+    border-radius: 12px; /* มนเล็กน้อย */
+    margin-bottom: 30px;
+    /* จัด content กลางกล่อง (ถ้ามี) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* --- To-do Section Header --- */
@@ -55,110 +68,152 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
-.todo-list {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
-}
 .section-title {
-    font-family: "Press Start 2P", cursive; /* ฟอนต์หัวข้อแบบ Pixel */
-    font-size: 1.5rem;
+    font-family: "Press Start 2P", cursive;
+    font-size: 1.4rem;
     margin: 0;
+    color: #000;
 }
 
 .add-btn {
     font-family: "Press Start 2P", cursive;
     font-size: 0.8rem;
-    text-decoration: none;
     color: #000;
     cursor: pointer;
+    text-decoration: underline;
+    transition: opacity 0.2s;
+}
+
+.add-btn:active {
+    opacity: 0.6;
 }
 
 /* --- To-do Card Item --- */
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .todo-card {
     display: flex;
     align-items: center;
     background: #fff;
     border: 2px solid #000;
-    border-radius: 15px;
-    padding: 10px 15px;
-    margin-bottom: 15px;
+    border-radius: 16px;
+    padding: 15px;
     position: relative;
-    transition: all 0.2s;
+    transition:
+        transform 0.1s,
+        background-color 0.2s;
+    cursor: pointer;
 }
 
-.todo-icon {
-    font-size: 2.5rem;
+.todo-card:active {
+    transform: scale(0.98);
+}
+
+/* Completed State Style */
+.card-completed {
+    background-color: #f9f9f9;
+    border-color: #888;
+}
+
+/* Icon Area */
+.todo-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-right: 15px;
-    min-width: 50px;
-    text-align: center;
+    flex-shrink: 0; /* ไม่ให้หดเวลาจอเล็ก */
 }
 
+.emoji-icon {
+    font-size: 2.8rem;
+}
+
+/* Text Info Area */
 .todo-info {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* ป้องกัน text ล้น */
 }
 
 .todo-title {
-    font-family: "Kanit", sans-serif; /* ใช้ Kanit ให้แสดงไทยสวย */
-    font-weight: 600;
-    font-size: 1rem;
-    margin-bottom: 5px;
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
     color: #000;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-crossed {
+    text-decoration: line-through;
+    color: #888;
 }
 
 .todo-meta {
     font-family: "VT323", monospace;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     display: flex;
-    gap: 5px;
+    align-items: center;
+    white-space: nowrap;
 }
 
-.todo-title.completed {
-    text-decoration: line-through;
-    color: #555;
+.separator {
+    color: #999;
+    margin: 0 8px;
 }
 
 /* Status Colors */
-.status-green {
-    color: #00aa00;
+.status-label {
     font-weight: bold;
 }
+.status-green {
+    color: #2ecc71;
+}
 .status-red {
-    color: #ff0000;
-    font-weight: bold;
+    color: #e74c3c;
 }
 .status-yellow {
     color: #f1c40f;
-    font-weight: bold;
-} /* เหลืองเข้มให้อ่านง่าย */
+}
 
-/* --- Custom Checkbox --- */
+/* --- Checkbox --- */
+.checkbox-wrapper {
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
 .custom-checkbox {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border: 2px solid #000;
     border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    margin-left: 10px;
     background-color: #fff;
+    transition: background-color 0.2s;
 }
 
 .custom-checkbox.checked {
-    background-color: #00aa00; /* สีเขียวเมื่อติ๊กถูก */
+    background-color: #2ecc71; /* สีเขียว */
     border-color: #000;
 }
 
-.check-mark {
+.check-mark-icon {
     color: #fff;
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.6rem;
+    --ionicon-stroke-width: 50px;
 }

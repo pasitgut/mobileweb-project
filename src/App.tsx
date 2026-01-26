@@ -51,6 +51,7 @@ import ProtectedRoute from "./auth/ProtectedRoute";
 import Calendar from "./pages/Calendar";
 import Todo from "./pages/Todo";
 import Profile from "./pages/Profile";
+import AddTodo from "./pages/AddTodo";
 
 setupIonicReact();
 
@@ -71,6 +72,7 @@ const Tabs: React.FC = () => {
         <ProtectedRoute exact path="/calendar" component={Calendar} />
         <ProtectedRoute exact path="/todo" component={Todo} />
         <ProtectedRoute exact path="/profile" component={Profile} />
+        <ProtectedRoute exact path="/add-todo" component={AddTodo} />
 
         <Route exact path="/">
           <Redirect to="/home" />
@@ -96,21 +98,24 @@ const Tabs: React.FC = () => {
           </IonTabButton>
           <IonTabButton tab="Profile" href="/profile">
             <IonIcon aria-hidden="true" icon={person} />
-            <IonLabel>People</IonLabel>
+            <IonLabel>Profile</IonLabel>
           </IonTabButton>
         </IonTabBar>
       )}
     </IonTabs>
   );
 };
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <AuthProvider>
-        <Tabs />
-      </AuthProvider>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  document.body.setAttribute("color-theme", "light");
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <AuthProvider>
+          <Tabs />
+        </AuthProvider>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

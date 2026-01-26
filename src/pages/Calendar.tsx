@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   IonPage,
   IonContent,
@@ -11,7 +11,7 @@ import {
   IonButton,
   IonButtons,
 } from "@ionic/react";
-import { chevronBack, chevronForward } from "ionicons/icons";
+import { chevronBack, chevronForward, checkmarkOutline } from "ionicons/icons";
 import {
   format,
   addMonths,
@@ -20,21 +20,50 @@ import {
   getDay,
   isSameDay,
   getDaysInMonth,
+  parseISO,
 } from "date-fns";
 import "./Calendar.css";
 
+// --- Mock Data สำหรับ Todo List ---
+const mockTodos = [
+  {
+    id: 1,
+    title: "พาหมาไปเดินเล่น",
+    time: "08:00",
+    status: "coming soon",
+    statusColor: "status-green",
+    date: new Date(), // วันนี้
+    isCompleted: false,
+  },
+  {
+    id: 2,
+    title: "ส่งงาน Software Engineering",
+    time: "13:00",
+    status: "Missed",
+    statusColor: "status-red",
+    date: new Date(), // วันนี้
+    isCompleted: false,
+  },
+  {
+    id: 3,
+    title: "นัดหมอฟัน",
+    time: "10:30",
+    status: "Completed",
+    statusColor: "status-yellow",
+    date: addMonths(new Date(), 1), // เดือนหน้า
+    isCompleted: true,
+  },
+];
+
 const Calendar: React.FC = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
   const numDays = getDaysInMonth(currentMonth);
-
   const startDay = getDay(startOfMonth(currentMonth));
-
   const prefixDays = startDay === 0 ? 6 : startDay - 1;
 
   const daysArray = [
@@ -68,16 +97,17 @@ const Calendar: React.FC = () => {
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;
 
-    if (isLeftSwipe) {
-      nextMonth();
-    }
-    if (isRightSwipe) {
-      prevMonth();
-    }
+    if (isLeftSwipe) nextMonth();
+    if (isRightSwipe) prevMonth();
 
     setTouchStart(0);
     setTouchEnd(0);
   };
+
+  // --- Filter Todos ตามวันที่เลือก ---
+  const filteredTodos = useMemo(() => {
+    return mockTodos.filter((todo) => isSameDay(todo.date, selectedDate));
+  }, [selectedDate]);
 
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -101,23 +131,24 @@ const Calendar: React.FC = () => {
 
             <IonButtons slot="end" className="nav-buttons">
               <IonButton onClick={prevMonth} color="light">
-                <IonIcon icon={chevronBack} />
+                <IonIcon icon={chevronBack} style={{ color: "black" }} />
               </IonButton>
               <IonButton onClick={nextMonth} color="light">
-                <IonIcon icon={chevronForward} />
+                <IonIcon icon={chevronForward} style={{ color: "black" }} />
               </IonButton>
             </IonButtons>
           </div>
         </IonToolbar>
       </IonHeader>
 
-      <IonContent color="dark" fullscreen>
+      <IonContent color="light" fullscreen>
         <div
           style={{ padding: "0 10px", background: "white", minHeight: "100%" }}
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
+          {/* Calendar Grid */}
           <IonGrid className="calendar-grid">
             <IonRow>
               {weekDays.map((day, index) => (
@@ -143,7 +174,9 @@ const Calendar: React.FC = () => {
                   <IonCol key={index} size="1.7" className="ion-no-padding">
                     <div
                       onClick={() => day && onDateClick(day)}
-                      className={`calendar-day ${isSelected ? "selected-day" : ""} ${!day ? "empty-day" : ""}`}
+                      className={`calendar-day ${
+                        isSelected ? "selected-day" : ""
+                      } ${!day ? "empty-day" : ""}`}
                     >
                       {day || ""}
                     </div>
@@ -152,6 +185,37 @@ const Calendar: React.FC = () => {
               })}
             </IonRow>
           </IonGrid>
+
+          {/* --- Todo List Section --- */}
+          <div className="todo-container">
+            <h3 className="todo-header-date">
+              Tasks for {format(selectedDate, "dd MMMM")}
+            </h3>
+
+            {filteredTodos.length === 0 ? (
+              <div className="no-tasks">No tasks for this day</div>
+            ) : (
+              filteredTodos.map((todo) => (
+                <div key={todo.id} className="todo-card">
+                  <div className="todo-info">
+                    <div className="todo-title">{todo.title}</div>
+                    <div className="todo-meta">
+                      <span className={`status-dot ${todo.statusColor}`}>
+                        ●
+                      </span>
+                      <span className="todo-time">{todo.time}</span>
+                      <span className="todo-status">{todo.status}</span>
+                    </div>
+                  </div>
+                  <div
+                    className={`checkbox-box ${todo.isCompleted ? "checked" : ""}`}
+                  >
+                    {todo.isCompleted && <IonIcon icon={checkmarkOutline} />}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </IonContent>
     </IonPage>

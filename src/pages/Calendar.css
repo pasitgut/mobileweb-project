@@ -53,3 +53,86 @@ ion-header {
     margin-bottom: 20px;
     font-weight: normal;
 }
+
+/* ... (Code เก่าด้านบน) ... */
+
+/* --- Todo List Styling --- */
+.todo-container {
+    margin-top: 30px;
+    padding-bottom: 50px;
+    border-top: 2px dashed #ccc;
+    padding-top: 20px;
+}
+
+.todo-header-date {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.no-tasks {
+    text-align: center;
+    color: #aaa;
+    font-size: 1.5rem;
+    padding: 20px;
+}
+
+.todo-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+.todo-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-title {
+    font-size: 1.6rem;
+    color: #000;
+    margin-bottom: 5px;
+}
+
+.todo-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Status Colors */
+.status-dot {
+    font-size: 1.2rem;
+}
+.status-green {
+    color: #2ecc71;
+}
+.status-red {
+    color: #e74c3c;
+}
+.status-yellow {
+    color: #f1c40f;
+}
+
+.checkbox-box {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #000;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-box.checked {
+    background-color: #000;
+    color: #fff;
+}
