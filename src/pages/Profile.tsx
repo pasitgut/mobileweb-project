@@ -209,7 +209,6 @@ const Profile: React.FC = () => {
                 placeholder="xxx@gmail.com"
                 type="email"
                 value={email}
-                readonly
                 className="custom-ion-input"
               />
             </div>
