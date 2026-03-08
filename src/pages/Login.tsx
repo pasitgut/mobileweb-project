@@ -37,7 +37,7 @@ const Login: React.FC = () => {
     <IonPage>
       <IonContent fullscreen className="retro-bg">
         <div className="logo-container">
-          <h1>Noted.</h1>
+          <img src="/logo.png" alt="Noted Logo" className="logo-img" />
         </div>
         <div className="auth-card">
           <div className="card-header">

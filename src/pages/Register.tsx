@@ -81,7 +81,7 @@ const Register: React.FC = () => {
 
         {/* --- Main Content --- */}
         <div className="logo-container">
-          <h1>Noted.</h1>
+          <img src="/logo.png" alt="Noted Logo" className="logo-img" />
         </div>
 
         {/* Arrow Decoration เหนือกล่อง */}
