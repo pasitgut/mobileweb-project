@@ -150,7 +150,14 @@ ion-content {
     --placeholder-color: #aaa;
     --placeholder-opacity: 1;
     font-size: 15px;
-    color: #333;
+    color: #000 !important;
+}
+
+/* Ensure IonSelect text is also black */
+ion-select {
+    color: #000 !important;
+    --placeholder-color: #aaa;
+    --placeholder-opacity: 1;
 }
 
 .form-row {
