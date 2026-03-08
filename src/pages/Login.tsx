@@ -84,6 +84,7 @@ const Login: React.FC = () => {
                   style={{
                     margin: 0,
                     fontSize: "0.8rem",
+                    color: "#000",
                   }}
                 >
                   No account? <a href="/register" style={{ fontWeight: "bold", color: "#000" }}>Register</a>
