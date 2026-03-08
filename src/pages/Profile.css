@@ -79,20 +79,9 @@ ion-content {
     color: #888;
 }
 
-.edit-badge {
-    position: absolute;
-    bottom: 5px;
-    right: 10px;
-    background-color: #707070;
-    color: white;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid white;
-    /* ขอบขาวหนาขึ้น */
+.main-avatar-icon {
+    font-size: 80px;
+    color: #888;
 }
 
 .user-name-text {
@@ -162,23 +151,6 @@ ion-content {
     --placeholder-opacity: 1;
     font-size: 15px;
     color: #333;
-}
-
-/* Specific overrides for date and select inputs to ensure visible font color */
-.small-box ion-input {
-    color: #333 !important;
-}
-
-.small-box ion-select {
-    color: #333 !important;
-    --placeholder-color: #aaa;
-    --placeholder-opacity: 1;
-}
-
-.small-box {
-    justify-content: flex-start;
-    margin-bottom: 0;
-    /* Space below date/gender row */
 }
 
 .flex-grow {
