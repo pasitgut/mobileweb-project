@@ -97,19 +97,17 @@
     margin-bottom: 12px;
 }
 
-/* ปรับแต่ง IonInput ให้แบนราบ (Flat) */
-.retro-input {
-    --background: #D9D9D9;
-    /* Light gray background */
+/* ปรับแต่ง IonInput ให้แบนราบ (Flat) - เพิ่มความเฉพาะเจาะจงและบังคับ Style */
+ion-input.retro-input {
+    --background: #D9D9D9 !important;
+    --color: #000 !important;
+    --placeholder-color: #777 !important;
     --padding-start: 10px;
-    --placeholder-color: #777;
-    /* Dark gray placeholder */
-    --color: #000;
-    /* Black text color */
-    border: 2px solid #555;
+    border: 2px solid #555 !important;
     font-weight: bold;
     height: 45px;
     --border-radius: 0px;
+    background-color: #D9D9D9 !important;
 }
 
 /* --- 6. ปุ่ม Register --- */
