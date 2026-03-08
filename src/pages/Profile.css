@@ -153,6 +153,16 @@ ion-content {
     color: #333;
 }
 
+.form-row {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.half-width {
+    flex: 1;
+}
+
 .flex-grow {
     flex-grow: 1;
 }
