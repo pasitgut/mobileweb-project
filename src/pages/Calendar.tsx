@@ -11,7 +11,7 @@ import {
   IonButton,
   IonButtons,
 } from "@ionic/react";
-import { chevronBack, chevronForward, checkmarkOutline } from "ionicons/icons";
+import { chevronBack, chevronForward } from "ionicons/icons";
 import {
   format,
   addMonths,
@@ -22,45 +22,25 @@ import {
   getDaysInMonth,
   parseISO,
 } from "date-fns";
+import { useTodos } from "../hooks/useTodos";
+import { useIonViewWillEnter } from "@ionic/react";
+import { useHistory } from "react-router-dom";
+import { TodoItem } from "../components/common/TodoItem";
 import "./Calendar.css";
 
-// --- Mock Data สำหรับ Todo List ---
-const mockTodos = [
-  {
-    id: 1,
-    title: "พาหมาไปเดินเล่น",
-    time: "08:00",
-    status: "coming soon",
-    statusColor: "status-green",
-    date: new Date(), // วันนี้
-    isCompleted: false,
-  },
-  {
-    id: 2,
-    title: "ส่งงาน Software Engineering",
-    time: "13:00",
-    status: "Missed",
-    statusColor: "status-red",
-    date: new Date(), // วันนี้
-    isCompleted: false,
-  },
-  {
-    id: 3,
-    title: "นัดหมอฟัน",
-    time: "10:30",
-    status: "Completed",
-    statusColor: "status-yellow",
-    date: addMonths(new Date(), 1), // เดือนหน้า
-    isCompleted: true,
-  },
-];
-
 const Calendar: React.FC = () => {
+  const history = useHistory();
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+
+  const { todos, toggle, reload } = useTodos();
+
+  useIonViewWillEnter(() => {
+    reload();
+  });
 
   const numDays = getDaysInMonth(currentMonth);
   const startDay = getDay(startOfMonth(currentMonth));
@@ -106,8 +86,15 @@ const Calendar: React.FC = () => {
 
   // --- Filter Todos ตามวันที่เลือก ---
   const filteredTodos = useMemo(() => {
-    return mockTodos.filter((todo) => isSameDay(todo.date, selectedDate));
-  }, [selectedDate]);
+    return todos.filter((todo) => {
+      const todoDate = new Date(todo.deadline);
+      return isSameDay(todoDate, selectedDate);
+    });
+  }, [todos, selectedDate]);
+
+  const toggleTodo = async (todo: any) => {
+    await toggle(todo);
+  };
 
   const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
@@ -161,6 +148,7 @@ const Calendar: React.FC = () => {
             <IonRow>
               {daysArray.map((day, index) => {
                 let isSelected = false;
+                let hasTodo = false;
                 if (day) {
                   const thisDate = new Date(
                     currentMonth.getFullYear(),
@@ -168,17 +156,20 @@ const Calendar: React.FC = () => {
                     day,
                   );
                   isSelected = isSameDay(thisDate, selectedDate);
+
+                  // หาว่าในวันนี้มี task ใดๆ หรือไม่
+                  hasTodo = todos.some((t) => isSameDay(new Date(t.deadline), thisDate));
                 }
 
                 return (
                   <IonCol key={index} size="1.7" className="ion-no-padding">
                     <div
                       onClick={() => day && onDateClick(day)}
-                      className={`calendar-day ${
-                        isSelected ? "selected-day" : ""
-                      } ${!day ? "empty-day" : ""}`}
+                      className={`calendar-day ${isSelected ? "selected-day" : ""
+                        } ${!day ? "empty-day" : ""}`}
                     >
                       {day || ""}
+                      {hasTodo && <div className="calendar-dot" />}
                     </div>
                   </IonCol>
                 );
@@ -196,23 +187,16 @@ const Calendar: React.FC = () => {
               <div className="no-tasks">No tasks for this day</div>
             ) : (
               filteredTodos.map((todo) => (
-                <div key={todo.id} className="todo-card">
-                  <div className="todo-info">
-                    <div className="todo-title">{todo.title}</div>
-                    <div className="todo-meta">
-                      <span className={`status-dot ${todo.statusColor}`}>
-                        ●
-                      </span>
-                      <span className="todo-time">{todo.time}</span>
-                      <span className="todo-status">{todo.status}</span>
-                    </div>
-                  </div>
-                  <div
-                    className={`checkbox-box ${todo.isCompleted ? "checked" : ""}`}
-                  >
-                    {todo.isCompleted && <IonIcon icon={checkmarkOutline} />}
-                  </div>
-                </div>
+                <TodoItem
+                  key={todo.id}
+                  todo={todo}
+                  onToggle={toggleTodo}
+                  onEdit={(e, id) => {
+                    e.stopPropagation();
+                    history.push(`/edit-todo/${id}`);
+                  }}
+                  showDelete={true}
+                />
               ))
             )}
           </div>

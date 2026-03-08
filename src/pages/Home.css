@@ -16,7 +16,8 @@
     background-color: #ffffff;
     min-height: 100vh;
     font-family: "Kanit", sans-serif;
-    padding-bottom: 80px; /* เผื่อพื้นที่ด้านล่าง */
+    padding-bottom: 80px;
+    /* เผื่อพื้นที่ด้านล่าง */
 }
 
 /* --- Header Section --- */
@@ -26,7 +27,8 @@
 
 .logo-text {
     font-family:
-        "Silkscreen", cursive; /* เปลี่ยนเป็น Silkscreen ให้อ่านง่ายและเท่ */
+        "Silkscreen", cursive;
+    /* เปลี่ยนเป็น Silkscreen ให้อ่านง่ายและเท่ */
     font-size: 3rem;
     font-weight: 700;
     margin: 0;
@@ -49,18 +51,65 @@
     margin-top: -5px;
 }
 
-/* --- Gray Box Banner --- */
-.gray-banner {
+/* --- Quote Banner (External API) --- */
+.quote-banner {
     width: 100%;
-    height: 180px;
-    background-color: #d9d9d9;
-    border: 2px solid #000; /* เพิ่มขอบดำให้เข้า theme */
-    border-radius: 12px; /* มนเล็กน้อย */
-    margin-bottom: 30px;
-    /* จัด content กลางกล่อง (ถ้ามี) */
+    min-height: 80px;
+    background-color: #fcf3cf;
+    /* สีเหลืองอ่อนพาสเทล */
+    border: 2px solid #000;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    padding: 15px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    box-shadow: 4px 4px 0px #000;
+    /* แนว Retro/Pixel */
+}
+
+.quote-title {
+    font-family: "Press Start 2P", cursive;
+    font-size: 0.7rem;
+    color: #000;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.quote-text {
+    font-family: "Kanit", sans-serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: #333;
+    margin: 0;
+}
+
+/* --- Focus Mini Card --- */
+.focus-mini-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 30px;
+}
+
+.focus-mini-label {
+    font-family: "Kanit", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    color: #000;
+}
+
+.focus-mini-value {
+    font-family: "VT323", monospace;
+    font-size: 1.4rem;
+    color: #000;
+    font-weight: bold;
 }
 
 /* --- To-do Section Header --- */
@@ -130,7 +179,8 @@
     align-items: center;
     justify-content: center;
     margin-right: 15px;
-    flex-shrink: 0; /* ไม่ให้หดเวลาจอเล็ก */
+    flex-shrink: 0;
+    /* ไม่ให้หดเวลาจอเล็ก */
 }
 
 .emoji-icon {
@@ -143,7 +193,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow: hidden; /* ป้องกัน text ล้น */
+    overflow: hidden;
+    /* ป้องกัน text ล้น */
 }
 
 .todo-title {
@@ -179,12 +230,15 @@
 .status-label {
     font-weight: bold;
 }
+
 .status-green {
     color: #2ecc71;
 }
+
 .status-red {
     color: #e74c3c;
 }
+
 .status-yellow {
     color: #f1c40f;
 }
@@ -208,7 +262,8 @@
 }
 
 .custom-checkbox.checked {
-    background-color: #2ecc71; /* สีเขียว */
+    background-color: #2ecc71;
+    /* สีเขียว */
     border-color: #000;
 }
 

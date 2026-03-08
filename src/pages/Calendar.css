@@ -26,7 +26,8 @@ ion-header {
 
 .calendar-day {
     font-size: 1.5rem;
-    color: #888; /* สีเทาตามภาพ */
+    color: #888;
+    /* สีเทาตามภาพ */
     height: 50px;
     display: flex;
     align-items: center;
@@ -34,10 +35,28 @@ ion-header {
 }
 
 .selected-day {
-    background-color: #d0d0d0; /* พื้นหลังสีเทา */
-    color: #000; /* ตัวหนังสือสีดำ */
+    background-color: #d0d0d0;
+    /* พื้นหลังสีเทา */
+    color: #000;
+    /* ตัวหนังสือสีดำ */
     font-weight: bold;
-    border-radius: 4px; /* มนนิดหน่อย */
+    border-radius: 4px;
+    /* มนนิดหน่อย */
+}
+
+/* จุดแสดงว่ามี Todo ในวันนี้ */
+.calendar-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #000;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 4px;
+}
+
+.calendar-day {
+    position: relative;
+    /* สำคัญเพื่อจัดตำแหน่ง dot */
 }
 
 .header-year {
@@ -112,12 +131,15 @@ ion-header {
 .status-dot {
     font-size: 1.2rem;
 }
+
 .status-green {
     color: #2ecc71;
 }
+
 .status-red {
     color: #e74c3c;
 }
+
 .status-yellow {
     color: #f1c40f;
 }

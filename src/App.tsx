@@ -73,6 +73,7 @@ const Tabs: React.FC = () => {
         <ProtectedRoute exact path="/todo" component={Todo} />
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/add-todo" component={AddTodo} />
+        <ProtectedRoute exact path="/edit-todo/:id" component={AddTodo} />
 
         <Route exact path="/">
           <Redirect to="/home" />

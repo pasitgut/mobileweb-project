@@ -6,50 +6,33 @@ import {
   IonIcon,
   IonItem,
   IonLabel,
+  useIonViewWillEnter,
+  IonSelect,
+  IonSelectOption
 } from "@ionic/react";
-import { chevronDownOutline, checkmarkOutline } from "ionicons/icons";
+import { chevronDownOutline } from "ionicons/icons";
+import { useHistory } from "react-router-dom";
+import { useTodos } from "../hooks/useTodos";
+import { getTodoStatus } from "../types/todo";
+import { TodoItem } from "../components/common/TodoItem";
 import "./Todo.css";
 
-// Mock Data structure based on the image
-const initialTodos = [
-  {
-    id: 1,
-    title: "พาหมาไปเดินเล่น",
-    statusText: "coming soon",
-    statusColor: "status-green",
-    date: "13 December 2028",
-    icon: "🐶", // Using emoji as placeholder for the dog image
-    isCompleted: false,
-  },
-  {
-    id: 2,
-    title: "ส่งงาน Software Engineering",
-    statusText: "Missed",
-    statusColor: "status-red",
-    date: "13 December 2028",
-    icon: "📓", // Using emoji for notebook
-    isCompleted: false,
-  },
-  {
-    id: 3,
-    title: "ส่งงาน Web Mobile App",
-    statusText: "Completed",
-    statusColor: "status-yellow",
-    date: "13 December 2028",
-    icon: "📓",
-    isCompleted: true,
-  },
-];
-
 const Todo: React.FC = () => {
-  const [todos, setTodos] = useState(initialTodos);
+  const { todos, toggle, remove, reload } = useTodos();
+  const history = useHistory();
+  const [filterStatus, setFilterStatus] = useState<string>("All");
 
-  const toggleTodo = (id: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo,
-      ),
-    );
+  useIonViewWillEnter(() => {
+    reload();
+  });
+
+  const toggleTodo = async (todo: any) => {
+    await toggle(todo);
+  };
+
+  const deleteTodo = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    await remove(id);
   };
 
   return (
@@ -60,54 +43,48 @@ const Todo: React.FC = () => {
           <div className="header-left">
             <h1 className="pixel-font title-text">To-do</h1>
             <div className="filter-chip">
-              All <IonIcon icon={chevronDownOutline} />
+              <IonSelect
+                value={filterStatus}
+                onIonChange={e => setFilterStatus(e.detail.value)}
+                interface="popover"
+                style={{ minHeight: 'unset', padding: 0 }}
+              >
+                <IonSelectOption value="All">All</IonSelectOption>
+                <IonSelectOption value="Coming soon">Coming soon</IonSelectOption>
+                <IonSelectOption value="Missed">Missed</IonSelectOption>
+                <IonSelectOption value="Completed">Completed</IonSelectOption>
+              </IonSelect>
             </div>
           </div>
           <div className="header-right">
-            <span className="pixel-font add-btn-text">Add-To-do</span>
+            <span
+              className="pixel-font add-btn-text"
+              onClick={() => history.push('/add-todo')}
+              style={{ cursor: "pointer" }}
+            >
+              Add-To-do
+            </span>
           </div>
         </div>
       </IonHeader>
 
       <IonContent className="ion-padding">
         <div className="todo-list">
-          {todos.map((todo) => (
-            <div
-              key={todo.id}
-              className={`todo-card ${todo.isCompleted ? "completed-card" : ""}`}
-              onClick={() => toggleTodo(todo.id)}
-            >
-              {/* Icon Section */}
-              <div className="todo-icon-wrapper">
-                <span className="emoji-icon">{todo.icon}</span>
-              </div>
-
-              {/* Text Section */}
-              <div className="todo-details">
-                <h3
-                  className={`todo-title ${todo.isCompleted ? "strikethrough" : ""}`}
-                >
-                  {todo.title}
-                </h3>
-                <p className="todo-meta">
-                  <span className={`status-text ${todo.statusColor}`}>
-                    {todo.statusText}
-                  </span>
-                  <span className="date-sep"> | </span>
-                  <span className="date-text">{todo.date}</span>
-                </p>
-              </div>
-
-              {/* Checkbox Section */}
-              <div className="todo-checkbox-wrapper">
-                <div
-                  className={`custom-checkbox ${todo.isCompleted ? "checked" : ""}`}
-                >
-                  {todo.isCompleted && <IonIcon icon={checkmarkOutline} />}
-                </div>
-              </div>
-            </div>
-          ))}
+          {todos
+            .filter((todo) => filterStatus === "All" || getTodoStatus(todo) === filterStatus)
+            .map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onToggle={toggleTodo}
+                onDelete={deleteTodo}
+                onEdit={(e, id) => {
+                  e.stopPropagation();
+                  history.push(`/edit-todo/${id}`);
+                }}
+                showDelete={true}
+              />
+            ))}
         </div>
       </IonContent>
     </IonPage>

@@ -18,7 +18,8 @@ ion-content {
     align-items: center;
     padding: 10px 20px;
     background: white;
-    border-bottom: 1px solid #000; /* mimic the line under header */
+    border-bottom: 1px solid #000;
+    /* mimic the line under header */
 }
 
 .custom-header h1 {
@@ -60,7 +61,8 @@ ion-content {
 .avatar-circle {
     width: 120px;
     height: 120px;
-    background-color: #d9d9d9; /* Gray placeholder */
+    background-color: #d9d9d9;
+    /* Gray placeholder */
     border-radius: 50%;
     position: relative;
 }
@@ -144,12 +146,24 @@ ion-content {
     --placeholder-color: #aaa;
     --placeholder-opacity: 1;
     font-size: 14px;
-    color: #333;
+    color: #333 !important;
+}
+
+/* Specific overrides for date and select inputs to ensure visible font color */
+.small-box ion-input {
+    color: #333 !important;
+}
+
+.small-box ion-select {
+    color: #333 !important;
+    --placeholder-color: #aaa;
+    --placeholder-opacity: 1;
 }
 
 .small-box {
     justify-content: flex-start;
-    margin-bottom: 20px; /* Space below date/gender row */
+    margin-bottom: 20px;
+    /* Space below date/gender row */
 }
 
 .flex-grow {
@@ -168,7 +182,8 @@ ion-content {
     --color: #ffffff;
     --border-radius: 12px;
     --box-shadow: none;
-    font-family: "VT323", monospace; /* Pixel font for buttons */
+    font-family: "VT323", monospace;
+    /* Pixel font for buttons */
     font-size: 22px;
     text-transform: none;
     height: 55px;

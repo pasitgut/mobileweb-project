@@ -66,13 +66,15 @@ ion-content {
 
 .input-group label {
     display: block;
-    font-size: 20px; /* Larger size for Pixel font labels */
+    font-size: 20px;
+    /* Larger size for Pixel font labels */
     margin-bottom: 5px;
     color: #000;
 }
 
 .custom-input-box {
-    border: 2px solid #000; /* Thicker border as per design */
+    border: 2px solid #000;
+    /* Thicker border as per design */
     border-radius: 12px;
     height: 50px;
     display: flex;
@@ -83,7 +85,8 @@ ion-content {
 
 .custom-ion-input {
     --padding-start: 5px;
-    font-family: "Kanit", sans-serif; /* Input text in Kanit for readability */
+    font-family: "Kanit", sans-serif;
+    /* Input text in Kanit for readability */
 }
 
 /* Date/Time Placeholders */
@@ -115,4 +118,84 @@ ion-content {
     text-transform: none;
     height: 55px;
     letter-spacing: 1px;
+}
+
+/* Icon Picker Modal Styles */
+ion-modal.icon-picker-modal {
+    --background: #ffffff;
+    --border-radius: 20px 20px 0 0;
+}
+
+.icon-picker-content {
+    background: #ffffff;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 15px;
+    padding: 10px;
+    justify-items: center;
+}
+
+.emoji-option {
+    font-size: 40px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.emoji-option:hover {
+    transform: scale(1.1);
+}
+
+.emoji-option.selected {
+    background-color: #f0f0f0;
+    border: 2px solid #000;
+}
+
+/* Hide the native calendar/clock picker icon */
+.hide-native-indicator-icon::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* Force Light Mode for Datetime Modal Component */
+ion-datetime.light-datetime {
+    --background: #ffffff;
+    --background-rgb: 255, 255, 255;
+    --title-color: #000000;
+    --wheel-highlight-background: #f0f0f0;
+    --wheel-fade-background-rgb: 255, 255, 255;
+    color: #000000;
+    color-scheme: light;
+}
+
+ion-datetime.light-datetime::part(time-button) {
+    color: #000000;
+    background: #f0f0f0;
+}
+
+ion-datetime.light-datetime::part(month-year-button) {
+    color: #000000;
+}
+
+/* Datetime Dialog Modal */
+ion-modal.datetime-dialog-modal {
+    --width: 90%;
+    --min-width: 250px;
+    --max-width: 400px;
+    --height: fit-content;
+    --border-radius: 16px;
+    --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }

@@ -1,27 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { IonContent, IonPage, useIonViewWillLeave } from "@ionic/react";
+import React, { useEffect } from "react";
+import { IonContent, IonPage, useIonViewWillLeave, useIonToast } from "@ionic/react";
+import { useFocusTimer } from "../hooks/useFocus";
 import "./Focus.css";
 
 const Focus: React.FC = () => {
-  const defaultTime = 3600; // 1 ชั่วโมง
-  const [timeLeft, setTimeLeft] = useState(defaultTime);
-  const [isActive, setIsActive] = useState(false);
+  const [presentToast] = useIonToast();
+  const {
+    timeLeft,
+    isActive,
+    toggleTimer,
+    resetTimer,
+    adjustTime,
+    onLeave,
+    error,
+    successMsg,
+    clearMessages,
+  } = useFocusTimer(3600); // 1 ชั่วโมง default time
 
   useIonViewWillLeave(() => {
-    setIsActive(false);
+    onLeave();
   });
 
   useEffect(() => {
-    let interval: any = null;
-    if (isActive && timeLeft > 0) {
-      interval = setInterval(() => {
-        setTimeLeft((time) => time - 1);
-      }, 1000);
-    } else if (timeLeft === 0) {
-      setIsActive(false);
+    if (successMsg) {
+      presentToast({ message: successMsg, duration: 2000, color: "success" });
+      clearMessages();
     }
-    return () => clearInterval(interval);
-  }, [isActive, timeLeft]);
+    if (error) {
+      presentToast({ message: error, duration: 2000, color: "danger" });
+      clearMessages();
+    }
+  }, [successMsg, error, presentToast, clearMessages]);
 
   const formatTime = (seconds: number) => {
     const getSeconds = `0${seconds % 60}`.slice(-2);
@@ -31,34 +40,18 @@ const Focus: React.FC = () => {
     return `${getHours}:${getMinutes}:${getSeconds}`;
   };
 
-  // ฟังก์ชันปุ่ม Start/Pause
-  const handleToggleTimer = () => {
-    if (timeLeft > 0) {
-      setIsActive(!isActive);
-    }
-  };
-
-  // ฟังก์ชันปุ่ม Reset
-  const handleReset = () => {
-    setIsActive(false);
-    setTimeLeft(defaultTime);
-  };
-
-  const adjustTime = (seconds: number) => {
-    if (!isActive) {
-      setTimeLeft((prev) => {
-        const newTime = prev + seconds;
-        return newTime > 0 ? newTime : 0;
-      });
-    }
-  };
-
   return (
     <IonPage>
       <IonContent fullscreen className="focus-bg">
         <div className="focus-container">
           {/* Header Logo */}
-          <div className="header-logo">Noted.</div>
+          <div className="header-logo" style={{ display: "flex", justifyContent: "center" }}>
+            <img
+              src="/logo.png"
+              alt="Noted."
+              style={{ width: "160px", display: "block" }}
+            />
+          </div>
 
           {/* Green Screen Area */}
           <div className="screen-box">
@@ -91,7 +84,7 @@ const Focus: React.FC = () => {
             <div className="buttons-group">
               {/* ปุ่มบนขวา: Reset */}
               <div className="btn-item stop-pos">
-                <button className="circle-btn" onClick={handleReset}></button>
+                <button className="circle-btn" onClick={resetTimer}></button>
                 <span className="btn-text">Reset</span>
               </div>
 
@@ -99,7 +92,7 @@ const Focus: React.FC = () => {
               <div className="btn-item start-pos">
                 <button
                   className="circle-btn"
-                  onClick={handleToggleTimer}
+                  onClick={toggleTimer}
                 ></button>
                 <span className="btn-text">{isActive ? "Pause" : "Start"}</span>
               </div>
