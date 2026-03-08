@@ -165,29 +165,28 @@ const Register: React.FC = () => {
               </IonButton>
             </div>
 
-            {/* Login Link (ทำให้ดูเหมือนปุ่มเล็กๆ หรือ text ธรรมดา) */}
-            <div
-              style={{
-                textAlign: "center",
-                marginTop: "15px",
-                background: "#fff",
-                border: "1px solid #000",
-                display: "inline-block",
-                padding: "2px 5px",
-                marginLeft: "25%",
-              }}
-            >
-              <a
-                href="/login"
+            {/* Login Link */}
+            <div style={{ textAlign: "center", marginTop: "15px" }}>
+              <div
                 style={{
-                  textDecoration: "none",
-                  color: "#000",
-                  fontSize: "0.8rem",
-                  fontWeight: "bold",
+                  background: "#fff",
+                  border: "1px solid #000",
+                  display: "inline-block",
+                  padding: "2px 8px",
                 }}
               >
-                Login instead
-              </a>
+                <a
+                  href="/login"
+                  style={{
+                    textDecoration: "none",
+                    color: "#000",
+                    fontSize: "0.8rem",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Login instead
+                </a>
+              </div>
             </div>
           </div>
         </div>

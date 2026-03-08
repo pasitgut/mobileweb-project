@@ -71,15 +71,25 @@ const Login: React.FC = () => {
                 Login
               </IonButton>
             </div>
-            <p
-              style={{
-                textAlign: "center",
-                marginTop: "10px",
-                fontSize: "0.8rem",
-              }}
-            >
-              No account? <a href="/register">Register</a>
-            </p>
+            <div style={{ textAlign: "center", marginTop: "10px" }}>
+              <div
+                style={{
+                  background: "#fff",
+                  border: "1px solid #000",
+                  display: "inline-block",
+                  padding: "2px 8px",
+                }}
+              >
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "0.8rem",
+                  }}
+                >
+                  No account? <a href="/register" style={{ fontWeight: "bold", color: "#000" }}>Register</a>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <IonLoading isOpen={showLoading} message={"Logging in..."} />
