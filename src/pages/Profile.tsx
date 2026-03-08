@@ -9,22 +9,20 @@ import {
   IonRow,
   IonCol,
   IonButton,
-  IonDatetimeButton,
-  IonModal,
-  IonDatetime,
   IonSelect,
   IonSelectOption,
 } from "@ionic/react";
 import {
   person,
   pencil,
-  calendarOutline,
+  calendarClearOutline,
   personOutline,
   callOutline,
   mailOutline,
   lockClosedOutline,
   eyeOutline,
   eyeOffOutline,
+  chevronDownOutline,
 } from "ionicons/icons";
 import { auth } from "../firebaseConfig";
 import { getUserProfile, updateUserProfile } from "../services/userService";
@@ -127,7 +125,7 @@ const Profile: React.FC = () => {
       {/* Header Section */}
       <IonHeader className="ion-no-border">
         <div className="custom-header">
-          <h1 className="pixel-font">ProFile</h1>
+          <h1 className="pixel-font">Profile</h1>
           <div className="header-icon-bg">
             <IonIcon icon={person} />
           </div>
@@ -137,7 +135,8 @@ const Profile: React.FC = () => {
       <IonContent className="ion-padding">
         {/* Avatar Section */}
         <div className="avatar-section">
-          <div className="avatar-circle" onClick={handleAvatarClick} style={{ cursor: "pointer" }}>
+          <div className="avatar-placeholder">
+            <IonIcon icon={person} className="main-avatar-icon" />
             <div className="edit-badge">
               <IonIcon icon={pencil} />
             </div>
@@ -146,47 +145,47 @@ const Profile: React.FC = () => {
         </div>
 
         {/* Form Section */}
-        <div className="form-container">
-          {/* Date & Gender Row */}
-          <IonGrid className="ion-no-padding">
-            <IonRow>
-              <IonCol size="6" className="ion-padding-end">
-                <div style={{ marginBottom: "8px" }}>
-                  <label style={{ fontWeight: 600, color: "#333", fontSize: "14px", display: "block" }}>Birthday</label>
-                </div>
-                <div className="custom-input-box small-box">
-                  <IonIcon icon={calendarOutline} className="input-icon" />
-                  <IonInput
-                    type="date"
-                    value={birthday}
-                    onIonChange={(e) => setBirthday(e.detail.value!)}
-                    style={{ '--padding-start': '0px' }}
-                  />
-                </div>
-              </IonCol>
-              <IonCol size="6" className="ion-padding-start">
-                <div style={{ marginBottom: "8px" }}>
-                  <label style={{ fontWeight: 600, color: "#333", fontSize: "14px", display: "block" }}>Gender</label>
-                </div>
-                <div className="custom-input-box small-box">
-                  <IonIcon icon={personOutline} className="input-icon" />
-                  <div className="flex-grow">
-                    <IonSelect
-                      value={gender}
-                      placeholder="Gender"
-                      onIonChange={e => setGender(e.detail.value)}
-                      interface="popover"
-                      style={{ minHeight: 'unset', width: '100%' }}
-                    >
-                      <IonSelectOption value="male">Male</IonSelectOption>
-                      <IonSelectOption value="female">Female</IonSelectOption>
-                      <IonSelectOption value="other">Other</IonSelectOption>
-                    </IonSelect>
-                  </div>
-                </div>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
+        <div className="form-container-profile">
+
+          {/* Birthday */}
+          <div className="input-group">
+            <label>Birthday</label>
+            <div className="custom-input-box">
+              <IonIcon icon={calendarClearOutline} className="input-icon" />
+              <IonInput
+                type="date"
+                value={birthday}
+                onIonChange={(e) => setBirthday(e.detail.value!)}
+                className="custom-ion-input"
+                style={{ '--padding-start': '0px' }}
+              />
+            </div>
+          </div>
+
+          {/* Gender */}
+          <div className="input-group">
+            <label>Gender</label>
+            <div className="custom-input-box">
+              <IonIcon icon={personOutline} className="input-icon" />
+              <div className="flex-grow">
+                <IonSelect
+                  value={gender}
+                  placeholder="Select Gender"
+                  onIonChange={e => setGender(e.detail.value)}
+                  interface="popover"
+                  style={{ minHeight: 'unset', width: '100%' }}
+                >
+                  <IonSelectOption value="male">Male</IonSelectOption>
+                  <IonSelectOption value="female">Female</IonSelectOption>
+                  <IonSelectOption value="other">Other</IonSelectOption>
+                </IonSelect>
+              </div>
+              <IonIcon
+                icon={chevronDownOutline}
+                style={{ fontSize: "16px", color: "#333" }}
+              />
+            </div>
+          </div>
 
           {/* Phone Number */}
           <div className="input-group">
